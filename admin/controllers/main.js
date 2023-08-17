@@ -140,7 +140,7 @@ function display(products) {
         <tr>
           <td>${index + 1}</td>
           <td>${product.name}</td>
-          <td>${product.price}</td>
+          <td>${"$" + product.price.toLocaleString()}</td>
           <td>${product.screen}</td>
           <td>${product.backCamera}</td>
           <td>${product.frontCamera}</td>
