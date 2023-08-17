@@ -25,6 +25,12 @@ function createProduct() {
     type: getElement("#loaiSP").value,
   };
 
+  let isValid = validate();
+
+  if (!isValid) {
+    return;
+  }
+
   // Gọi API thêm sản phẩm
   apiCreateProduct(product)
     .then((response) => {
@@ -57,6 +63,7 @@ function deleteProduct(productId) {
 }
 
 function selectProduct(productId) {
+  resetForm();
   // Hiển thị modal
   $("#myModal").modal("show");
   // Hiển thị title và footer của modal
@@ -194,7 +201,32 @@ getElement("#btnThemSP").onclick = () => {
     <button class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
     <button class="btn btn-success" onclick="createProduct(), validateAndSubmit()">Thêm</button>
   `;
+
+  resetForm();
 };
+
+// ======= reset form ======= //
+function resetForm() {
+  // reset input
+  document.getElementById("TenSP").value = "";
+  document.getElementById("GiaSP").value = "";
+  document.getElementById("ScreenSP").value = "";
+  document.getElementById("camerasau").value = "";
+  document.getElementById("cameratruoc").value = "";
+  document.getElementById("HinhSP").value = "";
+  document.getElementById("MotaSP").value = "";
+  document.getElementById("loaiSP").value = "";
+
+  // reset span
+  document.getElementById("spName").innerHTML = "";
+  document.getElementById("spPrice").innerHTML = "";
+  document.getElementById("spImage").innerHTML = "";
+  document.getElementById("spType").innerHTML = "";
+  document.getElementById("spScreenSz").innerHTML = "";
+  document.getElementById("spFroCam").innerHTML = "";
+  document.getElementById("spBackCam").innerHTML = "";
+  document.getElementById("spDes").innerHTML = "";
+}
 
 // ======= Utils =======
 function getElement(selector) {
