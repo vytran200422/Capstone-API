@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Product Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <div class="container-fluid p-5">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Sốp Mobile</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation"></button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Trang chính <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <header class="display-4 my-4">Product Management</header>
+        <!-- Phan tab menu -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#DanhSachSP" role="tab" data-toggle="tab">Product List</a>
+            </li>
+        </ul>
+        <br />
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!--Danh sách sản phẩm -->
+            <div role="tabpanel" class="tab-pane in active" id="DanhSachSP">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- BEGIN BUTTOM THÊM MỚI -->
+                        <button id="btnThemSP" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                            <i class="fa fa-plus mr-1"></i>
+                            Add
+                        </button>
+                        <!-- END BUTTON THÊM MỚI -->
+                    </div>
+                    <div class="col-md-4">
+                        <!-- BEGIN TÌM KIẾM -->
+                        <div class="input-group mb-3">
+                            <input id="searchInput" onkeyup="searchProducts()" type="text" class="form-control"
+                                placeholder="Nhập từ khóa" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" />
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+                            </div>
+                        </div>
+                        <!-- END TÌM KIẾM -->
+                    </div>
+                </div>
+                <div class="clear-fix"></div>
+                <div class="tblSanPham" id="tblSanPham">
+                    <!-- BEGIN TABLE SẢN PHẨM -->
+                    <table class="table">
+                        <thead class="thead-light text-left justify-content-center align-content-center">
+                            <th scope="col">STT</th>
+                            <th scope="col" onclick="sortProductsByName()">Product name<i
+                                    class="fa-solid fa-sort-down"></i></th>
+                            <th scope="col" onclick="toggleSortProductsByPrice()">Price <i
+                                    class="fa-solid fa-sort-down"></i></th>
+                            <th scope="col">Screen</th>
+                            <th scope="col">Back Camera</th>
+                            <th scope="col">Front Camera</th>
+                            <th scope="col">Pic</th>
+                            <th scope="col">Describe</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Action</th>
+                        </thead>
+                        <tbody id="tblDanhSachSP"></tbody>
+                    </table>
+                    <!-- Phân trang -->
+                    <nav>
+                        <ul class="pagination justify-content-center" id="pagination"></ul>
+                    </nav>
+                    <!-- END TABLE SẢN PHẨM -->
+                </div>
+                <br />
+            </div>
+            <!-- Kết thúc danh sách sản phẩm -->
+        </div>
+
+        <!--KetThuc Tabmenu-->
+
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Tên Sản Phẩm</label>
+                            <input id="TenSP" class="form-control" placeholder="Nhập vào tên sản phẩm" />
+                        </div>
+                        <div class="form-group">
+                            <label>Giá</label>
+                            <input id="GiaSP" class="form-control" placeholder="Nhập vào giá" />
+                        </div>
+                        <div class="form-group">
+                            <label>Screen</label>
+                            <input id="ScreenSP" class="form-control" placeholder="Kích thước màn hình" />
+                        </div>
+                        <div class="form-group">
+                            <label>Camera sau</label>
+                            <input id="camerasau" class="form-control" placeholder="Nhập vào giá" />
+                        </div>
+                        <div class="form-group">
+                            <label>Camera trước</label>
+                            <input id="cameratruoc" class="form-control" placeholder="Nhập vào giá" />
+                        </div>
+                        <div class="form-group">
+                            <label>Hình Ảnh</label>
+                            <input id="HinhSP" class="form-control" placeholder="Nhập vào hình sản phẩm" />
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả</label>
+                            <input id="MotaSP" class="form-control" placeholder="Nhập vào giá" />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Loại sản phẩm: </label>
+                            <select class="form-control" id="loaiSP">
+                                <option value="phone">Phone</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="ipad">Ipad</option>
+                                <option value="order">Orther</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container"></div>
+    <style>
+        #container {
+            min-width: 310px;
+            max-width: 800px;
+            height: 400px;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="../admin/models/Product.js"></script>
+    <script src="../admin/services/productAPI.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+    <script src="../admin/controllers/main.js"></script>
+</body>
+
+</html>

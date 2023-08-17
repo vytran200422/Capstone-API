@@ -1,0 +1,70 @@
+/* styles.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  padding: 15px 45px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  background: #ff7700;
+  border-radius: 50px;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.cta:focus {
+  outline: none;
+}
+
+.cta:hover {
+  background-color: #0f0202;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.text-1 {
+  margin-right: 10px;
+}
+
+.arrow-icon {
+  background-color: #fe0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-left: 15px;
+  transition: background-color 0.3s;
+}
+
+.arrow-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.cta:hover .arrow-icon {
+  background-color: #eef5f0;
+}
